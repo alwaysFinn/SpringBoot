@@ -1,3 +1,4 @@
+/*
 package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
@@ -11,3 +12,4 @@ public class DemoApplication {
 	}
 
 }
+ application이 두개 존재하면 안되므로 guestbookapplication을 공부하는 지금은 전부 주석 처리 */
