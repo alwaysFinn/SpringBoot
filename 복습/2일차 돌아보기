@@ -1,3 +1,51 @@
 - spring boot
 
 [순서]
+1. 타임리프써보고 공부하기 위해 application properties에 설정 정의
+  - 파일 저장 경로
+  - 캐시 저장 여부
+2. 바뀌는 것을 확인하기 위해 controller에서 mapping
+  - 기존에 만들어둔 DB 데이터들로 test
+  - model에 담아 veiw로 보내 test
+3. 조건에 따라 출력 방식 다르게 하는 방법 확인
+  - c:if or c:choose, c:when으로 분기점을 줘 여러 조건들을 구분하는 방식이 아닌 (spring)
+    그냥 코드 중간에 th:@@ = @@@처럼 조건을 주면 됨(boot)
+4. 인라인 속성 사용
+  - html을 작성하는 부근에서는 코드의 성능을 높이기 위해 [[]]안에 넘어온 값을 넣어서 호출
+  - JS에서는 [[]]안에 값을 넣어주지 않을 경우 error
+  ※ 참고 : 	https://maenco.tistory.com/entry/Thymeleaf-JavaScript-Inlining-%EC%9E%90%EB%B0%94%EC%8A%A4%ED%81%AC%EB%A6%BD%ED%8A%B8-%EC%9D%B8%EB%9D%BC%EC%9D%B8
+5. th:block 알아보기
+  - 기존에는 반복문으로 특정 값들 출력하기 위해 태그를 추가하여 묶어주었지만 th:block을 사용할 경우
+    값들 출력 후 block태그 사라짐 (알약껍질이나 선물상자같은 이미지)
+6. 링크 사용
+  - spring 방식 : a:href=""에 넣으면 링크 작동
+  - boot   방식 : @{}안에 넣어야 링크 작동
+7. 날짜 형식 지정 방식 확인
+  - spring처럼 함수를 따로 만들어 지정하지 않아도 기본 제공 기능 활용하여 형식 지정 가능
+  - 'LocalDateTime'
+  -  ${#temporals.format(dto.regTime, 'yyyy/MM/dd')}]]처럼 형식 지정, 지정된 형식대로 출력 됨
+  
+8. QueryDSL 사용을 위해 gradle에 의존성 추가
+  - QueryDSL : 암만 boot에서 기본적인 CRUD 제공해도 상세 조건 줄 경우 제한적 
+               이를 해결하기 위해 추가하는 프레임워크
+    - 장점 : 문자가 아닌 '코드'로 쿼리를 작성하므로 문법 오류를 컴파일 시점에서 쉽게 확인 가능
+             작성이 쉬움 -> 자동완성 제공
+             동적 쿼리 작성 easy
+             쿼리 재사용 good
+9. gradle 새로고침
+10. (gradle/build/generated/) 경로에 querydsl이라는 폴더 생성됨
+11. test 파일들 생성하여 기능 사용
+  - insert
+  - update
+  - search
+    - select * from Table
+      where title contains (%@%);
+        -> Table 테이블에서 title에 @를 포함한 값들 select 
+12. 문법 
+  - BooleanBuilder builder = new BooleanBuilder();
+    = select * from table
+  - BooleanExpression expression = qGuestbook.title.contains(keyword);
+    = where title = (%keyword%)
+  - builder.and(expression);
+    = select @@와 where @@ 합치는 구문
+    
