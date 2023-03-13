@@ -3,53 +3,52 @@
 
 <th:block th:replace="~{/layout/basic :: setContent(~{this::content} )}">
 
-  <th:block th:fragment="content">
+    <th:block th:fragment="content">
 
-    <h1 class="mt-4">GuestBook Read Page</h1>
-    <form action="/guestbook/modify" method="post">
-      <!-- 페이지 번호 -->
-      <!-- 페이지 번호 -->
-      <input type="hidden" name="page" th:value="${requestDTO.page}">
-      <input type="hidden" name="type" th:value="${requestDTO.type}">
-      <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
-      <div class="form-group">
-        <label>Gno</label>
-        <input type="text" class="form-control" name="gno" th:value="${dto.gno}" readonly>
-      </div>
+        <h1 class="mt-4">GuestBook Read Page</h1>
+        <form action="/guestbook/modify" method="post">
+            <!-- 페이지 번호 -->
+            <input type="hidden" name="page" th:value="${requestDTO.page}">
+            <input type="hidden" name="type" th:value="${requestDTO.type}">
+            <input type="hidden" name="keyword" th:value="${requestDTO.keyword}">
+            <div class="form-group">
+                <label>Gno</label>
+                <input type="text" class="form-control" name="gno" th:value="${dto.gno}" readonly>
+            </div>
 
-      <div class="form-group">
-        <label>Title</label>
-        <input type="text" class="form-control" name="title" th:value="${dto.title}">
-      </div>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" class="form-control" name="title" th:value="${dto.title}">
+            </div>
 
-      <div class="form-group">
-        <label>Content</label>
-        <textarea class="form-control" rows="5" name="content">[[${dto.content}]]</textarea>
-      </div>
+            <div class="form-group">
+                <label>Content</label>
+                <textarea class="form-control" rows="5" name="content">[[${dto.content}]]</textarea>
+            </div>
 
-      <div class="form-group">
-        <label>Writer</label>
-        <input type="text" class="form-control" name="writer" th:value="${dto.writer}" readonly>
-      </div>
+            <div class="form-group">
+                <label>Writer</label>
+                <input type="text" class="form-control" name="writer" th:value="${dto.writer}" readonly>
+            </div>
 
-      <div class="form-group">
-        <label>RegDate</label>
-        <input type="text" class="form-control"
-               th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-      </div>
+            <div class="form-group">
+                <label>RegDate</label>
+                <input type="text" class="form-control"
+                       th:value="${#temporals.format(dto.regDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+            </div>
 
-      <div class="form-group">
-        <label>ModDate</label>
-        <input type="text" class="form-control"
-               th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
-      </div>
-    </form>
+            <div class="form-group">
+                <label>ModDate</label>
+                <input type="text" class="form-control"
+                       th:value="${#temporals.format(dto.modDate, 'yyyy/MM/dd HH:mm:ss')}" readonly>
+            </div>
+        </form>
 
-    <button type="button" class="btn btn-primary">Modify</button>
+        <button type="button" class="btn btn-primary modifyBtn">Modify</button>
 
-    <button type="button" class="btn btn-info">List</button>
-    <button type="button" class="btn btn-danger removeBtn">Remove</button>
-    <script th:inline="javascript">
+        <button type="button" class="btn btn-info listBtn">List</button>
+        <button type="button" class="btn btn-danger removeBtn">Remove</button>
+        <script th:inline="javascript">
             var actionForm = $("form"); //form 태그 객체
             $(".removeBtn").click(function(){
                 actionForm.attr("action", "/guestbook/remove").attr("method", "post");
@@ -66,18 +65,6 @@
                 .attr("action", "/guestbook/modify")
                 .attr("method", "post")
                 .submit();
-            });
-
-            // 글 목록
-            $(".listBtn").click(function(){
-                var pageInfo = $("input[name='page']")
-
-                actionForm.empty(); // form 태그의 모든 내용을 지우고
-                actionForm.append(pageInfo); // 목록페이지 이동에 필요한 내용을 다시 추가
-                actionForm.attr("action", "/guestbook/list").attr("method", "get");
-
-                console.log(actionForm.html()); // 먼저 확인 후에 주석 처리
-                actionForm.submit(); //확인 후 주석 해제
             });
 
             // 글 목록
@@ -99,8 +86,10 @@
                 // console.log(actionForm.html()); // 먼저 확인 후에 주석 처리
                 actionForm.submit(); //확인 후 주석 해제
             });
-    </script>
-  </th:block>
+
+
+        </script>
+    </th:block>
 
 </th:block>
 
